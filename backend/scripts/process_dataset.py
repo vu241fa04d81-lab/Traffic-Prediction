@@ -1,10 +1,14 @@
 import pandas as pd
 import numpy as np
+from pathlib import Path
+
+_SCRIPTS_DIR = Path(__file__).resolve().parent
+_DATA_DIR = _SCRIPTS_DIR.parent / "data"
 
 def process_traffic_data():
-    raw_path = "data/traffic_raw.csv"
-    processed_path = "data/traffic_processed.csv"
-    locations_path = "data/locations.csv"
+    raw_path = str(_DATA_DIR / "traffic_raw.csv")
+    processed_path = str(_DATA_DIR / "traffic_processed.csv")
+    locations_path = str(_DATA_DIR / "locations.csv")
     
     print("Reading raw dataset...")
     df = pd.read_csv(raw_path)

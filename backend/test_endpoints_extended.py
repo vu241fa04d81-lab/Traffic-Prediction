@@ -3,8 +3,20 @@ Covers the automatic dataset analytics, model performance, and upload analysis e
 Run: py test_endpoints_extended.py
 """
 
+import sys
+from pathlib import Path
+
+_TEST_DIR = Path(__file__).resolve().parent
+for _p in [str(_TEST_DIR), str(_TEST_DIR.parent)]:
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
+
 from starlette.testclient import TestClient
-from backend.main import app
+
+try:
+    from backend.main import app
+except ImportError:
+    from main import app
 
 client = TestClient(app)
 
@@ -91,7 +103,7 @@ def test_upload_analysis():
     print("Testing POST /api/dataset/upload (default schema subset) ...")
     import io
     import pandas as pd
-    df = pd.read_csv("data/traffic_processed.csv").head(2000)
+    df = pd.read_csv(str(_TEST_DIR / "data" / "traffic_processed.csv")).head(2000)
     buf = io.BytesIO()
     df.to_csv(buf, index=False)
     buf.seek(0)

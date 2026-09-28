@@ -1,5 +1,17 @@
+import sys
+from pathlib import Path
+
+_TEST_DIR = Path(__file__).resolve().parent
+for _p in [str(_TEST_DIR), str(_TEST_DIR.parent)]:
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
+
 from starlette.testclient import TestClient
-from backend.main import app
+
+try:
+    from backend.main import app
+except ImportError:
+    from main import app
 
 client = TestClient(app)
 

@@ -5,10 +5,17 @@ Upholds strict data honesty: distinguishes endpoint location analytics from corr
 """
 
 from typing import Dict, Any
-from backend.services.geospatial_service import geospatial_service
-from backend.services.analytics_service import analytics_service
-from backend.services.ml_service import ml_service
-from backend.services.recommendation_service import recommendation_service
+
+try:
+    from backend.services.geospatial_service import geospatial_service
+    from backend.services.analytics_service import analytics_service
+    from backend.services.ml_service import ml_service
+    from backend.services.recommendation_service import recommendation_service
+except ImportError:
+    from services.geospatial_service import geospatial_service
+    from services.analytics_service import analytics_service
+    from services.ml_service import ml_service
+    from services.recommendation_service import recommendation_service
 
 class RouteIntelligenceService:
     def analyze_route(self, request_payload: Dict[str, Any]) -> Dict[str, Any]:

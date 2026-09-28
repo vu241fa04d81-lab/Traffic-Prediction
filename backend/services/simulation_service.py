@@ -6,8 +6,13 @@ Clearly labeled as 'Scenario Simulation' - never live traffic.
 """
 
 from typing import Dict, Any, List
-from backend.services.ml_service import ml_service
-from backend.services.recommendation_service import recommendation_service
+
+try:
+    from backend.services.ml_service import ml_service
+    from backend.services.recommendation_service import recommendation_service
+except ImportError:
+    from services.ml_service import ml_service
+    from services.recommendation_service import recommendation_service
 
 class SimulationService:
     def simulate_scenario(self, scenario_input: Dict[str, Any]) -> Dict[str, Any]:

@@ -1,0 +1,39 @@
+# Render Blueprint — TRAFFIQ (FastAPI backend + React/Vite static frontend)
+#
+# Deploy: Render Dashboard → New + → Blueprint → pick this repository.
+# Render reads this file and creates both services.
+#
+# NOTE: the frontend proxies /api/* to https://traffiq-api.onrender.com.
+# If Render has to rename the API service (name already taken), update the
+# rewrite destination below to the actual API service URL.
+
+services:
+  # ---------- FastAPI backend: ML predictions, analytics, geocoding, OSRM routing ----------
+  - type: web
+    name: traffiq-api
+    runtime: python
+    plan: free
+    buildCommand: cd backend && pip install -r requirements.txt
+    startCommand: cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /
+    envVars:
+      # Match the Python version the model artifacts were built with.
+      - key: PYTHON_VERSION
+        value: 3.13.2
+
+  # ---------- React/Vite frontend: static site, same-origin /api proxy ----------
+  - type: web
+    name: traffiq-frontend
+    runtime: static
+    buildCommand: cd frontend && npm ci && npm run build
+    staticPublishPath: frontend/dist
+    routes:
+      # Same-origin rewrite so the frontend's relative /api calls just work
+      # (the browser never talks cross-origin, so CORS is never an issue).
+      - type: rewrite
+        source: /api/*
+        destination: https://traffiq-api.onrender.com/api/*
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: DENY

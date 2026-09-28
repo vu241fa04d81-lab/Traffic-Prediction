@@ -3,18 +3,37 @@ TRAFFIQ Backend API
 FastAPI Application for Smart City Traffic Intelligence & Route Analytics.
 """
 
+import sys
+from pathlib import Path
+
+# Ensure both backend directory and project root are in sys.path
+_BACKEND_DIR = Path(__file__).resolve().parent
+_ROOT_DIR = _BACKEND_DIR.parent
+for _p in [str(_BACKEND_DIR), str(_ROOT_DIR)]:
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
+
 from fastapi import FastAPI, HTTPException, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import Optional, Dict, Any, List
 
-from backend.services.geospatial_service import geospatial_service
-from backend.services.analytics_service import analytics_service
-from backend.services.ml_service import ml_service
-from backend.services.recommendation_service import recommendation_service
-from backend.services.simulation_service import simulation_service
-from backend.services.route_intelligence_service import route_intelligence_service
-from backend.services.dataset_service import dataset_service  # custom CSV upload analysis + geocoding only
+try:
+    from backend.services.geospatial_service import geospatial_service
+    from backend.services.analytics_service import analytics_service
+    from backend.services.ml_service import ml_service
+    from backend.services.recommendation_service import recommendation_service
+    from backend.services.simulation_service import simulation_service
+    from backend.services.route_intelligence_service import route_intelligence_service
+    from backend.services.dataset_service import dataset_service  # custom CSV upload analysis + geocoding only
+except ImportError:
+    from services.geospatial_service import geospatial_service
+    from services.analytics_service import analytics_service
+    from services.ml_service import ml_service
+    from services.recommendation_service import recommendation_service
+    from services.simulation_service import simulation_service
+    from services.route_intelligence_service import route_intelligence_service
+    from services.dataset_service import dataset_service  # custom CSV upload analysis + geocoding only
 
 app = FastAPI(
     title="TRAFFIQ API",
@@ -279,4 +298,4 @@ def run_simulation(req: SimulationRequest):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("backend.main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("main:app", host="127.0.0.1", port=8001, reload=True)

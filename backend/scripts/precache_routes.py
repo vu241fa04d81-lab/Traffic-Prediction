@@ -1,5 +1,17 @@
+import sys
+from pathlib import Path
+
+_SCRIPTS_DIR = Path(__file__).resolve().parent
+_BACKEND_DIR = _SCRIPTS_DIR.parent
+for _p in [str(_BACKEND_DIR), str(_BACKEND_DIR.parent)]:
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
+
 import time
-from backend.services.geospatial_service import geospatial_service
+try:
+    from backend.services.geospatial_service import geospatial_service
+except ImportError:
+    from services.geospatial_service import geospatial_service
 
 def precache_all_routes():
     locations = geospatial_service.get_all_locations()

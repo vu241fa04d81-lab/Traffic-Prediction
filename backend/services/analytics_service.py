@@ -5,10 +5,13 @@ Provides high-performance Level 1 analytics over processed traffic dataset.
 
 import pandas as pd
 import numpy as np
+from pathlib import Path
 from typing import Dict, Any, List, Optional
 
-PROCESSED_DATA_PATH = "data/traffic_processed.csv"
-LOCATIONS_PATH = "data/locations.csv"
+_SERVICE_DIR = Path(__file__).resolve().parent
+_BACKEND_DIR = _SERVICE_DIR.parent
+PROCESSED_DATA_PATH = str(_BACKEND_DIR / "data" / "traffic_processed.csv")
+LOCATIONS_PATH = str(_BACKEND_DIR / "data" / "locations.csv")
 
 class AnalyticsService:
     def __init__(self):
@@ -204,7 +207,10 @@ class AnalyticsService:
 
     def get_dataset_overview(self) -> Dict[str, Any]:
         """Schema overview derived from the shared processed dataset (no separate loader)."""
-        from backend.services.dataset_service import analyze_schema
+        try:
+            from backend.services.dataset_service import analyze_schema
+        except ImportError:
+            from services.dataset_service import analyze_schema
         if self._overview_cache is None:
             ov = analyze_schema(self.df, "TRAFFIQ processed traffic dataset (data/traffic_processed.csv) — historical/static CSV data")
             ov["is_default_dataset"] = True
@@ -215,14 +221,20 @@ class AnalyticsService:
 
     def get_dataset_analytics(self) -> Dict[str, Any]:
         """Full automatic analytics derived from the shared processed dataset."""
-        from backend.services.dataset_service import _resolve_columns, compute_full_analytics
+        try:
+            from backend.services.dataset_service import _resolve_columns, compute_full_analytics
+        except ImportError:
+            from services.dataset_service import _resolve_columns, compute_full_analytics
         if self._analytics_cache is None:
             self._analytics_cache = compute_full_analytics(self.df, _resolve_columns(self.df))
         return self._analytics_cache
 
     def get_dataset_preview(self, search: Optional[str], limit: int) -> Dict[str, Any]:
         """Preview/search rows derived from the shared processed dataset."""
-        from backend.services.dataset_service import build_preview
+        try:
+            from backend.services.dataset_service import build_preview
+        except ImportError:
+            from services.dataset_service import build_preview
         return build_preview(self.df, search, limit)
 
 analytics_service = AnalyticsService()

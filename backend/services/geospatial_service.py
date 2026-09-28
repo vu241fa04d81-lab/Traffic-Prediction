@@ -7,10 +7,13 @@ import os
 import json
 import requests
 import pandas as pd
+from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
-LOCATIONS_PATH = "data/locations.csv"
-CACHE_PATH = "data/cache/routes_cache.json"
+_SERVICE_DIR = Path(__file__).resolve().parent
+_BACKEND_DIR = _SERVICE_DIR.parent
+LOCATIONS_PATH = str(_BACKEND_DIR / "data" / "locations.csv")
+CACHE_PATH = str(_BACKEND_DIR / "data" / "cache" / "routes_cache.json")
 OSRM_BASE_URL = "https://router.project-osrm.org/route/v1/driving"
 NOMINATIM_BASE_URL = "https://nominatim.openstreetmap.org/search"
 

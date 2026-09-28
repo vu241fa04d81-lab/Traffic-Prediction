@@ -1,5 +1,20 @@
+# Python
 .venv/
-
-data/uploads/
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+backend/data/uploads/*
+!backend/data/uploads/.gitkeep
+*.log
+
+# Node / Frontend
+frontend/node_modules/
+frontend/dist/
+*.local
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.freebuff/

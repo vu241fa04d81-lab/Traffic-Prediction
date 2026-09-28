@@ -24,8 +24,12 @@ from ml.preprocess import (
     get_location_infrastructure_defaults
 )
 
-DATA_PATH = "data/traffic_processed.csv"
-ARTIFACTS_DIR = "ml/artifacts"
+from pathlib import Path
+
+_ML_DIR = Path(__file__).resolve().parent
+_BACKEND_DIR = _ML_DIR.parent
+DATA_PATH = str(_BACKEND_DIR / "data" / "traffic_processed.csv")
+ARTIFACTS_DIR = str(_ML_DIR / "artifacts")
 
 def train_and_evaluate():
     print(f"Loading processed data from {DATA_PATH}...")

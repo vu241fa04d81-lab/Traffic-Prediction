@@ -1,9 +1,13 @@
 import pandas as pd
 import numpy as np
 import json
+from pathlib import Path
+
+_SCRIPTS_DIR = Path(__file__).resolve().parent
+_DATA_DIR = _SCRIPTS_DIR.parent / "data"
 
 def inspect_dataset():
-    df = pd.read_csv("data/traffic_raw.csv")
+    df = pd.read_csv(str(_DATA_DIR / "traffic_raw.csv"))
     
     print("=" * 60)
     print("TRAFFIQ DATASET PROGRAMMATIC INSPECTION REPORT")

@@ -1,0 +1,75 @@
+{
+  "City Center": {
+    "status": "ok",
+    "lat": 59.4372342,
+    "lon": 24.7572724,
+    "display_name": "Kesklinna linnaosa, Tallinn, Harju maakond, Eesti"
+  },
+  "Vignan University Gate": {
+    "status": "not_found",
+    "lat": null,
+    "lon": null,
+    "display_name": null
+  },
+  "Charminar": {
+    "status": "ok",
+    "lat": 17.3616024,
+    "lon": 78.4746421,
+    "display_name": "Charminar, Charminar Circle, Laad Bazaar, Khilwat, Ward 49 Ghansi Bazar, Greater Hyderabad Municipal Corporation South Zone, Hyderabad, Bahadurpura mandal, Hyderabad, Telangana, 500002, India"
+  },
+  "hysd": {
+    "status": "ok",
+    "lat": 31.7596294,
+    "lon": 35.2136853,
+    "display_name": "\u05e8\u05d1\u05d9 \u05d7\u05d9\u05e1\u05d3\u05d0, \u05d9\u05e8\u05d5\u05e9\u05dc\u05d9\u05dd, \u05d4\u05de\u05d5\u05e9\u05d1\u05d4 \u05d4\u05d9\u05d5\u05d5\u05e0\u05d9\u05ea, \u05d9\u05e8\u05d5\u05e9\u05dc\u05d9\u05dd | \u0627\u0644\u0642\u062f\u0633, \u05e0\u05e4\u05ea \u05d9\u05e8\u05d5\u05e9\u05dc\u05d9\u05dd, \u05de\u05d7\u05d5\u05d6 \u05d9\u05e8\u05d5\u05e9\u05dc\u05d9\u05dd, 9323008, \u05d9\u05e9\u05e8\u05d0\u05dc"
+  },
+  "hyd": {
+    "status": "ok",
+    "lat": 17.2311636,
+    "lon": 78.4317834,
+    "display_name": "Rajiv Gandhi International Airport, T1 Departure Dr Opposite, Balapur mandal, Ranga Reddy, Telangana, 509218, India"
+  },
+  "hy": {
+    "status": "ok",
+    "lat": 20.6065846,
+    "lon": 106.2843471,
+    "display_name": "T\u1ec9nh H\u01b0ng Y\u00ean, Vi\u1ec7t Nam"
+  },
+  "gu": {
+    "status": "ok",
+    "lat": 13.4499943,
+    "lon": 144.7651677,
+    "display_name": "Guam, United States"
+  },
+  "vignan": {
+    "status": "ok",
+    "lat": 17.7110965,
+    "lon": 83.1652827,
+    "display_name": "Vignan, Kurmannapalem Road Flyover, Duvvada, Etapalem, Gajuwaka, Visakhapatnam, Andhra Pradesh, 530046, India"
+  },
+  "uignan": {
+    "status": "not_found",
+    "lat": null,
+    "lon": null,
+    "display_name": null
+  },
+  "vign": {
+    "status": "ok",
+    "lat": 48.1557329,
+    "lon": 2.7796435,
+    "display_name": "Terres du Gd Sous Les Vign, Le Grand-sous-les-Vignes, Dordives, Montargis, Loiret, Centre-Val de Loire, France m\u00e9tropolitaine, 45680, France"
+  },
+  "vig": {
+    "status": "ok",
+    "lat": 55.8519079,
+    "lon": 11.5845861,
+    "display_name": "Vig, Odsherred Kommune, Region Sj\u00e6lland, 4560, Danmark"
+  },
+  "vignab": {
+    "status": "error",
+    "lat": null,
+    "lon": null,
+    "display_name": null,
+    "message": "HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=10)"
+  }
+}

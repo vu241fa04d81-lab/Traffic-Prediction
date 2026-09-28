@@ -16,10 +16,13 @@ import time
 import uuid
 import pandas as pd
 import numpy as np
+from pathlib import Path
 from typing import Dict, Any, List, Optional
 
-UPLOADS_DIR = "data/uploads"
-GEOCODE_CACHE_PATH = "data/cache/geocode_cache.json"
+_SERVICE_DIR = Path(__file__).resolve().parent
+_BACKEND_DIR = _SERVICE_DIR.parent
+UPLOADS_DIR = str(_BACKEND_DIR / "data" / "uploads")
+GEOCODE_CACHE_PATH = str(_BACKEND_DIR / "data" / "cache" / "geocode_cache.json")
 MAX_UPLOAD_BYTES = 60 * 1024 * 1024          # 60 MB
 MAX_UPLOAD_ROWS = 200_000                     # analysis cap for uploaded files
 MAX_PREVIEW_ROWS = 200
@@ -559,7 +562,10 @@ class DatasetService:
 
     def geocode_locations(self, names: List[str]) -> Dict[str, Any]:
         """Geocode unique location names via OpenStreetMap Nominatim (cached, rate-limited)."""
-        from backend.services.geospatial_service import geocode_location
+        try:
+            from backend.services.geospatial_service import geocode_location
+        except ImportError:
+            from services.geospatial_service import geocode_location
         cache = self._load_geocode_cache()
         results = []
         geocoded_count = 0
@@ -588,7 +594,10 @@ class DatasetService:
     def geocode_single(self, name: str) -> Dict[str, Any]:
         """Geocode one place name via the existing Nominatim geocoder (persistent cache, no fabrication).
         Used by the map / route place search for any real-world location."""
-        from backend.services.geospatial_service import geocode_location
+        try:
+            from backend.services.geospatial_service import geocode_location
+        except ImportError:
+            from services.geospatial_service import geocode_location
         name = str(name).strip()
         if not name:
             return {"status": "not_found", "lat": None, "lon": None, "display_name": None}

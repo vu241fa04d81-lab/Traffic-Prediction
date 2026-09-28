@@ -17,9 +17,15 @@ from sklearn.metrics import (
     classification_report,
     confusion_matrix
 )
-from ml.preprocess import TARGET_COL, ALL_MODEL_FEATURES
+from pathlib import Path
 
-ARTIFACTS_DIR = "ml/artifacts"
+try:
+    from ml.preprocess import TARGET_COL, ALL_MODEL_FEATURES
+except ImportError:
+    from backend.ml.preprocess import TARGET_COL, ALL_MODEL_FEATURES
+
+_ML_DIR = Path(__file__).resolve().parent
+ARTIFACTS_DIR = str(_ML_DIR / "artifacts")
 
 def run_evaluation():
     model_path = os.path.join(ARTIFACTS_DIR, "best_model.joblib")

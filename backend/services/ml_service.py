@@ -9,9 +9,12 @@ import json
 import joblib
 import pandas as pd
 import numpy as np
+from pathlib import Path
 from typing import Dict, Any, List
 
-ARTIFACTS_DIR = "ml/artifacts"
+_SERVICE_DIR = Path(__file__).resolve().parent
+_BACKEND_DIR = _SERVICE_DIR.parent
+ARTIFACTS_DIR = str(_BACKEND_DIR / "ml" / "artifacts")
 
 class MLService:
     def __init__(self):

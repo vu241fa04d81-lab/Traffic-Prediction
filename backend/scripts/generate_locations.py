@@ -107,7 +107,13 @@ locations_def = [
     }
 ]
 
+from pathlib import Path
+
+_SCRIPTS_DIR = Path(__file__).resolve().parent
+_DATA_DIR = _SCRIPTS_DIR.parent / "data"
+
 df_loc = pd.DataFrame(locations_def)
-df_loc.to_csv("data/locations.csv", index=False)
-print("Successfully generated data/locations.csv:")
+loc_file = str(_DATA_DIR / "locations.csv")
+df_loc.to_csv(loc_file, index=False)
+print(f"Successfully generated {loc_file}:")
 print(df_loc[["Location_ID", "Location_Name", "Latitude", "Longitude", "Road_Type", "Road_Capacity"]])
