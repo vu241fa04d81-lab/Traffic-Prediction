@@ -121,7 +121,7 @@ class SimulationRequest(BaseModel):
 
 # ----------------- API ENDPOINTS -----------------
 
-@app.get("/")
+@app.api_route("/", methods=["GET", "HEAD"])
 def read_root():
     return {
         "project": "TRAFFIQ",
@@ -147,6 +147,11 @@ def read_root():
             "/api/simulation"
         ]
     }
+
+@app.api_route("/health", methods=["GET", "HEAD"])
+@app.api_route("/healthz", methods=["GET", "HEAD"])
+def health_check():
+    return {"status": "ok"}
 
 @app.get("/api/locations")
 def get_locations():
@@ -297,5 +302,8 @@ def run_simulation(req: SimulationRequest):
     return simulation_service.simulate_scenario(req.model_dump())
 
 if __name__ == "__main__":
+    import os
     import uvicorn
-    uvicorn.run("main:app", host="127.0.0.1", port=8001, reload=True)
+    port = int(os.environ.get("PORT", 8001))
+    host = os.environ.get("HOST", "0.0.0.0")
+    uvicorn.run("main:app", host=host, port=port)
