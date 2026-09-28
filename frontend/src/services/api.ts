@@ -2,7 +2,30 @@
  * TRAFFIQ API Client Service
  */
 
-const API_BASE = '/api';
+const DEFAULT_RENDER_API = 'https://traffic-prediction-1-k5oc.onrender.com/api';
+
+const getApiBase = (): string => {
+  // 1. Explicit environment variable takes highest priority
+  const envBase = (import.meta as any).env?.VITE_API_BASE;
+  if (envBase && typeof envBase === 'string' && envBase.trim().length > 0) {
+    return envBase.replace(/\/+$/, '');
+  }
+
+  // 2. In browser environments
+  if (typeof window !== 'undefined') {
+    const host = window.location.hostname;
+    // Local dev: use relative /api proxy
+    if (host === 'localhost' || host === '127.0.0.1' || host === '0.0.0.0') {
+      return '/api';
+    }
+    // Remote cloud deployment (e.g. Vercel, Netlify): direct to Render backend
+    return DEFAULT_RENDER_API;
+  }
+
+  return '/api';
+};
+
+const API_BASE = getApiBase();
 
 export interface LocationItem {
   Location_ID: string;

@@ -32,7 +32,7 @@ services:
       # (the browser never talks cross-origin, so CORS is never an issue).
       - type: rewrite
         source: /api/*
-        destination: https://traffiq-api.onrender.com/api/*
+        destination: https://traffic-prediction-1-k5oc.onrender.com/api/*
     headers:
       - path: /*
         name: X-Frame-Options
